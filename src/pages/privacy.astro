@@ -3,7 +3,9 @@ import Base from '../layouts/Base.astro';
 import { SITE } from '../site';
 ---
 <Base title="プライバシーポリシー・免責事項">
-  <h1>プライバシーポリシー・免責事項</h1>
+  <div class="wrap-narrow">
+    <header class="page-head"><h1>プライバシーポリシー・免責事項</h1></header>
+    <div class="prose">
   <h2>広告について</h2>
   <p>{SITE.name}（以下「当サイト」）は、A8.net等のアフィリエイトプログラムに参加しています。記事内のリンクから商品・サービスを購入された場合、当サイトが紹介料を受け取ることがあります。広告を含む記事には「PR」と表示しています。</p>
   <h2>Cookie・アクセス解析について</h2>
@@ -13,4 +15,6 @@ import { SITE } from '../site';
   <p>見本ファイルは自由に改変して業務にお使いいただけます。再配布はご遠慮ください。</p>
   <h2>改定</h2>
   <p>本ポリシーは予告なく改定することがあります。</p>
+    </div>
+  </div>
 </Base>

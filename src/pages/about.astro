@@ -3,7 +3,9 @@ import Base from '../layouts/Base.astro';
 import { SITE } from '../site';
 ---
 <Base title="運営者情報">
-  <h1>運営者情報</h1>
+  <div class="wrap-narrow">
+    <header class="page-head"><h1>運営者情報</h1></header>
+    <div class="prose">
   <table>
     <tr><th>サイト名</th><td>{SITE.name}</td></tr>
     <tr><th>運営者</th><td>kalkingTM</td></tr>
@@ -12,4 +14,6 @@ import { SITE } from '../site';
   <h2>記事の作り方について</h2>
   <p>当サイトの記事はAI（Claude）を使って下書き・作成しています。掲載前に、記事中の数式は見本のExcelファイルに入れて実際に計算させ、記事に書いた結果と一致することを自動で確かめています。一致しなかった記事は掲載しません。</p>
   <p>それでも誤りが残る可能性があります。お気づきの点は<a href="../contact/">お問い合わせ</a>からお知らせください。</p>
+    </div>
+  </div>
 </Base>

@@ -1,10 +1,30 @@
 ---
 import '../styles/global.css';
-import { SITE, url } from '../site';
-interface Props { title?: string; description?: string; noindex?: boolean; }
-const { title, description = SITE.tagline, noindex = false } = Astro.props;
-const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} — ${SITE.tagline}`;
+import { SITE, CATEGORIES, url } from '../site';
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  ogType?: 'website' | 'article';
+  jsonld?: object[];
+}
+const { title, description = SITE.description, noindex = false, ogType = 'website', jsonld = [] } = Astro.props;
+const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name}｜${SITE.tagline}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(url('og.png'), Astro.site);
+const path = Astro.url.pathname;
+const navItems = [
+  { href: url('/'), label: 'ホーム', match: (p: string) => p === url('/') },
+  ...CATEGORIES.map((c) => ({ href: url(`category/${c.slug}/`), label: c.name, match: (p: string) => p.startsWith(url(`category/${c.slug}/`)) })),
+];
+const siteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.name,
+  url: new URL(url('/'), Astro.site).href,
+  description: SITE.description,
+  inLanguage: 'ja',
+};
 ---
 <!doctype html>
 <html lang="ja">
@@ -14,27 +34,63 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex, nofollow" /> : <link rel="canonical" href={canonical} />}
+    <meta name="theme-color" content="#17683d" />
+    <meta property="og:site_name" content={SITE.name} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
+    <link rel="sitemap" href={url('sitemap.xml')} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet" />
+    {[siteLd, ...jsonld].map((d) => <script type="application/ld+json" set:html={JSON.stringify(d)} />)}
   </head>
   <body>
-    <header class="site">
+    <header class="site-header">
       <div class="wrap">
-        <a class="logo" href={url('/')}>{SITE.name}</a>
-        <nav>
-          <a href={url('/')}>記事一覧</a>
-          <a href={url('about/')}>運営者情報</a>
-          <a href={url('contact/')}>お問い合わせ</a>
+        <a class="brand" href={url('/')}>
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="8" fill="#17683d" />
+            <path d="M7 11h18M7 17h18M7 23h18M13 7v20" stroke="#fff" stroke-opacity=".28" stroke-width="1.4" />
+            <rect x="13" y="11" width="12" height="6" rx="1" fill="none" stroke="#fff" stroke-width="2" />
+            <path d="M17.5 21.5l2 2 4-4.5" fill="none" stroke="#9ff0c0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>{SITE.name}<small>検証済みの仕事用Excelレシピ</small></span>
+        </a>
+        <nav class="nav" aria-label="カテゴリ">
+          {navItems.map((n) => <a href={n.href} aria-current={n.match(path) ? 'page' : undefined}>{n.label}</a>)}
         </nav>
       </div>
     </header>
-    <main><div class="wrap"><slot /></div></main>
-    <footer class="site">
+
+    <slot name="hero" />
+    <main><slot /></main>
+
+    <footer class="site-footer">
       <div class="wrap">
-        <p>当サイトはアフィリエイトプログラムに参加しており、記事内の一部リンクから収益を得ることがあります（該当記事には「PR」と表示しています）。</p>
-        <p><a href={url('privacy/')}>プライバシーポリシー・免責事項</a> ／ © {new Date().getFullYear()} {SITE.name}</p>
+        <div class="about-col">
+          <h2>{SITE.name}</h2>
+          <p class="disclosure">{SITE.description}</p>
+          <p class="disclosure">当サイトはアフィリエイトプログラムに参加しており、記事内の一部リンクから収益を得ることがあります。該当する記事には「PR」と表示しています。</p>
+        </div>
+        <div>
+          <h2>カテゴリ</h2>
+          <ul>{CATEGORIES.map((c) => <li><a href={url(`category/${c.slug}/`)}>{c.name}</a></li>)}</ul>
+        </div>
+        <div>
+          <h2>サイトについて</h2>
+          <ul>
+            <li><a href={url('about/')}>運営者情報・記事の作り方</a></li>
+            <li><a href={url('privacy/')}>プライバシーポリシー・免責事項</a></li>
+            <li><a href={url('contact/')}>お問い合わせ</a></li>
+          </ul>
+        </div>
+        <p class="copy">© {new Date().getFullYear()} {SITE.name}</p>
       </div>
     </footer>
   </body>
