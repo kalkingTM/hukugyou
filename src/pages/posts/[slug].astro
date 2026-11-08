@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+import { url } from '../../site';
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((p) => ({ params: { slug: p.id }, props: { post: p } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+---
+<Base title={d.title} description={d.description}>
+  <article>
+    {d.hasAffiliate && <span class="pr">PR</span>}
+    <h1>{d.title}</h1>
+    <p class="meta">{d.date.toISOString().slice(0, 10)} ・ {d.category}</p>
+    {d.sampleFile && (
+      <p class="card">この記事の見本ファイル（数式入り・検証済み）: <a class="dl" href={url(`files/${d.sampleFile}`)} download>{d.sampleFile} をダウンロード</a></p>
+    )}
+    <Content />
+    <h2>参考にした情報</h2>
+    <ul class="sources">{d.sources.map((s) => <li><a href={s} rel="nofollow noopener" target="_blank">{s}</a></li>)}</ul>
+  </article>
+</Base>

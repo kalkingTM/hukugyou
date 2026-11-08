@@ -1,0 +1,21 @@
+{
+  "runs": [
+    {
+      "keyword": "Excel シフト表 自動 土日 色分け",
+      "slug": "shift-table-weekend-color",
+      "status": "published",
+      "score": 42,
+      "stages": {
+        "select": "ok",
+        "write": "ok",
+        "verify": "ok",
+        "review": "pass",
+        "publish": "ok"
+      },
+      "reasons": [],
+      "note": "初回の手動実行（検証9件一致・formulasエンジン）",
+      "id": 1,
+      "at": "2026-11-08T04:24:53.602Z"
+    }
+  ]
+}

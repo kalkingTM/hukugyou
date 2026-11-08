@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { SITE, url } from '../site';
+const posts = (await getCollection('posts')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<Base>
+  <h1>{SITE.name}</h1>
+  <p class="meta">{SITE.tagline}。すべての数式は見本ファイルで実際に計算して確かめてから掲載しています。</p>
+  {posts.length === 0 && <p class="card">最初のレシピを準備中です。</p>}
+  <ul class="post-list">
+    {posts.map((p) => (
+      <li class="card">
+        <span class="meta">{p.data.date.toISOString().slice(0, 10)} ・ {p.data.category}{p.data.sampleFile && ' ・ 見本ファイルあり'}</span><br />
+        <a href={url(`posts/${p.id}/`)}>{p.data.title}</a>
+        <p>{p.data.description}</p>
+      </li>
+    ))}
+  </ul>
+</Base>

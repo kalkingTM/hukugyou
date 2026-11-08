@@ -1,0 +1,5 @@
+node_modules/
+dist/
+.astro/
+*.tmp.xlsx
+__pycache__/

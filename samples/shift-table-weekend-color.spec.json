@@ -1,0 +1,14 @@
+{
+  "file": "public/files/shift-table-weekend-color.xlsx",
+  "checks": [
+    {"sheet": "シフト表", "cell": "B4", "expected": "日"},
+    {"sheet": "シフト表", "cell": "C4", "expected": "月"},
+    {"sheet": "シフト表", "cell": "D5", "expected": "祝"},
+    {"sheet": "シフト表", "cell": "H5", "expected": "土日"},
+    {"sheet": "シフト表", "cell": "C5", "expected": ""},
+    {"sheet": "シフト表", "cell": "X5", "expected": "祝"},
+    {"sheet": "シフト表", "cell": "AF3", "expected": ""},
+    {"sheet": "シフト表", "cell": "B12", "expected": 11},
+    {"sheet": "シフト表", "cell": "B13", "expected": 19}
+  ]
+}

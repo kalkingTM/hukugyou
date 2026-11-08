@@ -1,0 +1,137 @@
+---
+// 運用ダッシュボード（検索エンジン非公開: noindex）
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { readFileSync } from 'node:fs';
+import runsDb from '../../data/runs.json';
+import revenueDb from '../../data/revenue.json';
+import affiliates from '../../affiliates.json';
+import { url } from '../site';
+
+type Run = {
+  id: number; at: string; keyword: string;
+  status: 'published' | 'rejected' | 'error';
+  stages: Record<string, string>;
+  score?: number; reasons?: string[]; slug?: string; note?: string;
+};
+const runs = (runsDb.runs as Run[]).slice().reverse();
+const posts = await getCollection('posts');
+const published = runs.filter((r) => r.status === 'published').length;
+const rejected = runs.filter((r) => r.status === 'rejected').length;
+const errors = runs.filter((r) => r.status === 'error').length;
+const revenue = (revenueDb.entries as { yen: number }[]).reduce((s, e) => s + e.yen, 0);
+const lastRunAt = runs[0]?.at ?? null;
+
+// topics.md の残り（未使用 = "- [ ]" 行）
+const topicsMd = readFileSync(new URL('../../topics.md', import.meta.url), 'utf8');
+const topicsLeft = (topicsMd.match(/^- \[ \]/gm) ?? []).length;
+const topicsUsed = (topicsMd.match(/^- \[x\]/gim) ?? []).length;
+
+// 月別の公開本数
+const byMonth = new Map<string, number>();
+for (const p of posts) {
+  const m = p.data.date.toISOString().slice(0, 7);
+  byMonth.set(m, (byMonth.get(m) ?? 0) + 1);
+}
+const months = [...byMonth.entries()].sort();
+const maxMonth = Math.max(1, ...months.map(([, n]) => n));
+
+// フェーズ（次にユーザーがやること）
+const affCount = affiliates.items.length;
+let phase: { label: string; todo: string | null };
+if (posts.length < 10) phase = { label: `蓄積期（記事 ${posts.length}/10）`, todo: null };
+else if (affCount === 0) phase = { label: '収益化準備', todo: '記事が10本を超えました。A8.net などのASPに登録・提携申請し、提携できた案件を affiliates.json に追加してください。' };
+else phase = { label: `収益化中（提携案件 ${affCount}件）`, todo: null };
+
+// フロー図の各段の通過数
+const stageCount = (name: string, ok = 'ok') => runs.filter((r) => r.stages?.[name] === ok).length;
+const flow = [
+  { key: 'select', label: 'ネタ選定', sub: `在庫 ${topicsLeft}件` },
+  { key: 'write', label: '調査・執筆', sub: `${stageCount('write')}回` },
+  { key: 'verify', label: '数式の検証', sub: `一致 ${stageCount('verify')} / 不一致 ${stageCount('verify', 'ng')}` },
+  { key: 'review', label: 'AIレビュー', sub: `合格 ${stageCount('review', 'pass')} / 不合格 ${stageCount('review', 'fail')}` },
+  { key: 'publish', label: '公開', sub: `${published}本` },
+];
+const statusLabel = { published: '公開', rejected: '不採用', error: 'エラー' } as const;
+---
+<Base title="運用ダッシュボード" noindex>
+  <style>
+    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin: 16px 0 8px; }
+    .kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+    .kpi b { display: block; font-size: 1.6rem; line-height: 1.2; font-variant-numeric: tabular-nums; }
+    .kpi span { color: var(--muted); font-size: .8rem; }
+    .flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 6px; margin: 12px 0; }
+    .step { flex: 1 1 110px; background: var(--surface); border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: 8px; padding: 10px; font-size: .88rem; }
+    .step b { display: block; }
+    .step span { color: var(--muted); font-size: .78rem; }
+    .arrow { align-self: center; color: var(--muted); }
+    .alert { border-radius: 8px; padding: 10px 14px; margin: 10px 0; }
+    .alert.todo { background: var(--warn-soft); border: 1px solid var(--warn); }
+    .alert.ng { background: var(--ng-soft); border: 1px solid var(--ng); }
+    .bars { display: grid; gap: 6px; }
+    .bar { display: grid; grid-template-columns: 72px 1fr 32px; gap: 8px; align-items: center; font-size: .85rem; font-variant-numeric: tabular-nums; }
+    .bar i { display: block; height: 14px; background: var(--accent); border-radius: 3px; }
+    .st-published { color: var(--accent); font-weight: 600; }
+    .st-rejected { color: var(--warn); font-weight: 600; }
+    .st-error { color: var(--ng); font-weight: 600; }
+    td.wrap-cell { white-space: normal; min-width: 180px; }
+  </style>
+
+  <h1>運用ダッシュボード</h1>
+  <p class="meta">フェーズ: <b>{phase.label}</b> ／ 最終実行: <span id="last-run" data-at={lastRunAt ?? ''}>{lastRunAt ? lastRunAt.replace('T', ' ').slice(0, 16) + ' (UTC)' : 'まだ実行されていません'}</span></p>
+  <div id="stale" class="alert ng" hidden>最後の実行から36時間以上たっています。定期実行（routine）が止まっていないか確認してください。</div>
+  {phase.todo && <div class="alert todo"><b>あなたの作業:</b> {phase.todo}</div>}
+
+  <div class="kpis">
+    <div class="kpi"><b>{posts.length}</b><span>公開中の記事</span></div>
+    <div class="kpi"><b>{rejected}</b><span>不採用（公開せず）</span></div>
+    <div class="kpi"><b>{errors}</b><span>エラー</span></div>
+    <div class="kpi"><b>{topicsLeft}</b><span>ネタ在庫（使用済 {topicsUsed}）</span></div>
+    <div class="kpi"><b>¥{revenue.toLocaleString('ja-JP')}</b><span>累計収益（手入力）</span></div>
+  </div>
+
+  <h2>毎日の自動ループの流れ</h2>
+  <div class="flow">
+    {flow.map((s, i) => (
+      <>
+        {i > 0 && <span class="arrow" aria-hidden="true">→</span>}
+        <div class="step"><b>{i + 1}. {s.label}</b><span>{s.sub}</span></div>
+      </>
+    ))}
+  </div>
+  <p class="meta">毎日1回クラウドで起動 → 数式の検証かAIレビューのどちらかで落ちた記事は公開せず <code>rejected/</code> に保存 → 合格した記事だけ GitHub Pages に自動公開。</p>
+
+  <h2>月別の公開本数</h2>
+  {months.length === 0 ? <p class="meta">まだ記事がありません。</p> : (
+    <div class="bars">
+      {months.map(([m, n]) => (
+        <div class="bar"><span>{m}</span><i style={`width:${(n / maxMonth) * 100}%`}></i><span>{n}</span></div>
+      ))}
+    </div>
+  )}
+
+  <h2>実行履歴（新しい順）</h2>
+  {runs.length === 0 ? <p class="meta">まだ実行記録がありません。</p> : (
+    <table>
+      <thead><tr><th>#</th><th>日時(UTC)</th><th>結果</th><th>キーワード</th><th>点数</th><th>メモ</th></tr></thead>
+      <tbody>
+        {runs.slice(0, 60).map((r) => (
+          <tr>
+            <td>{r.id}</td>
+            <td>{r.at.replace('T', ' ').slice(0, 16)}</td>
+            <td class={`st-${r.status}`}>{statusLabel[r.status]}</td>
+            <td class="wrap-cell">{r.slug ? <a href={url(`posts/${r.slug}/`)}>{r.keyword}</a> : r.keyword}</td>
+            <td>{r.score ?? '-'}</td>
+            <td class="wrap-cell">{[...(r.reasons ?? []), r.note].filter(Boolean).join(' / ')}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )}
+
+  <script is:inline>
+    const el = document.getElementById('last-run');
+    const at = el && el.dataset.at;
+    if (at && Date.now() - new Date(at).getTime() > 36 * 3600 * 1000) document.getElementById('stale').hidden = false;
+  </script>
+</Base>
