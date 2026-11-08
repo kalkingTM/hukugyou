@@ -16,6 +16,24 @@
       "note": "初回の手動実行（検証9件一致・formulasエンジン）",
       "id": 1,
       "at": "2026-11-08T04:24:53.602Z"
+    },
+    {
+      "source": "routine",
+      "keyword": "Excel 日付 曜日 自動表示",
+      "slug": "date-weekday-auto-display",
+      "status": "published",
+      "score": 37,
+      "stages": {
+        "select": "ok",
+        "write": "ok",
+        "verify": "ok",
+        "review": "pass",
+        "publish": "ok"
+      },
+      "reasons": [],
+      "note": "検証9件一致(LibreOffice/ja_JP)。self-review: 解決力8/正確さ8/独自性6/分かりやすさ8/薄さ7",
+      "id": 2,
+      "at": "2026-11-08T04:31:56.710Z"
     }
   ]
 }

@@ -1,0 +1,14 @@
+{
+  "file": "public/files/date-weekday-auto-display.xlsx",
+  "checks": [
+    {"sheet": "曜日表示", "cell": "B2", "expected": "日"},
+    {"sheet": "曜日表示", "cell": "B4", "expected": "火"},
+    {"sheet": "曜日表示", "cell": "C8", "expected": "土曜日"},
+    {"sheet": "曜日表示", "cell": "D3", "expected": "2026/11/2(月)"},
+    {"sheet": "曜日表示", "cell": "F2", "expected": 1},
+    {"sheet": "曜日表示", "cell": "F8", "expected": 7},
+    {"sheet": "曜日表示", "cell": "G2", "expected": "日(休)"},
+    {"sheet": "曜日表示", "cell": "G5", "expected": "水"},
+    {"sheet": "曜日表示", "cell": "B11", "expected": "未入力"}
+  ]
+}
