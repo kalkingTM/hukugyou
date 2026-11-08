@@ -6,7 +6,8 @@
 - `git pull` で最新にする。
 - `npm ci` と `pip install -r requirements.txt` を実行する（入っていれば省略可）。
 - 可能なら LibreOffice を入れる（`sudo apt-get install -y libreoffice-calc` などで入れる。入れられなければ `formulas` での検証で進めてよい）。
-- 今日の日付(JST)で `src/content/posts/` に記事がすでにあれば、何もせずに終了する（1日1本の上限）。
+- `data/runs.json` に、今日の日付(JST)で `"source":"routine"` の記録がすでにあれば、何もせずに終了する（1日1回の上限。二重起動の防止）。
+- 記録（手順6）には必ず `"source":"routine"` を含める。
 
 ## 1. ネタ選定
 - `topics.md` の一番上の `- [ ]` を1つ選ぶ。既存記事と困りごとが重なる場合は `- [x] (重複のためスキップ)` にして次を選ぶ。
@@ -32,7 +33,7 @@
 
 ## 6. 記録とpush
 ```
-node scripts/log-run.mjs '{"keyword":"<検索語>","slug":"<公開時のみ>","status":"published|rejected|error","score":<点数>,"stages":{"select":"ok","write":"ok","verify":"ok|ng","review":"pass|fail","publish":"ok|skipped"},"reasons":["<不採用やエラーの理由>"],"note":"<一言>"}'
+node scripts/log-run.mjs '{"source":"routine","keyword":"<検索語>","slug":"<公開時のみ>","status":"published|rejected|error","score":<点数>,"stages":{"select":"ok","write":"ok","verify":"ok|ng","review":"pass|fail","publish":"ok|skipped"},"reasons":["<不採用やエラーの理由>"],"note":"<一言>"}'
 ```
 - `git add -A && git commit -m "post: <slug>"`（不採用は `"reject: <slug>"`）して `main` に push する。
 - 途中でエラーになっても、可能な限り status `error` で記録して push してから終了する（ダッシュボードで止まったことが分かるように）。
