@@ -1,25 +1,22 @@
 ---
 import Base from '../layouts/Base.astro';
-import { SITE, OPERATOR, experienceYears } from '../site';
+import { OPERATOR, experienceYears, url } from '../site';
 const years = experienceYears();
 ---
 <Base title="運営者情報">
   <div class="wrap-narrow">
     <header class="page-head"><h1>運営者情報</h1></header>
     <div class="prose">
-  <table>
-    <tr><th>サイト名</th><td>{SITE.name}</td></tr>
-    <tr><th>運営者</th><td>kalkingTM（{OPERATOR.role}）</td></tr>
-    <tr><th>経歴</th><td>{OPERATOR.careerStart.label}から実務に従事（実務経験{years}年）</td></tr>
-    <tr><th>内容</th><td>仕事で使えるExcelの作り方・関数の使い方を、見本ファイル付きで紹介しています。</td></tr>
-  </table>
-  <h2>運営者について</h2>
-  <p>運営者は、実務経験{years}年の{OPERATOR.role}です。仕事でExcelを使う人が、同じ困りごとで時間を使わずに済むように、このサイトを運営しています。</p>
-  <p>記事はAI（Claude）が作成しており、運営者がすべての記事を確認しているわけではありません。そのため、記事を「{OPERATOR.role}が監修したもの」とは表示していません。</p>
-  <h2>記事の作り方について</h2>
-  <p>当サイトの記事はAI（Claude）を使って下書き・作成しています。掲載前に、記事中の数式は見本のExcelファイルに入れて実際に計算させ、記事に書いた結果と一致することを自動で確かめています。一致しなかった記事は掲載しません。</p>
-  <p>記事は一般的な情報の提供を目的としたもので、個別の税務・会計・法律の判断を行うものではありません。個別のご事情については、専門家にご相談ください。</p>
-  <p>それでも誤りが残る可能性があります。お気づきの点は<a href="../contact/">お問い合わせ</a>からお知らせください。</p>
+      <table>
+        <tr><th>運営者</th><td>kalkingTM（{OPERATOR.role}）</td></tr>
+        <tr><th>経歴</th><td>{OPERATOR.careerStart.label}から実務に従事（実務経験{years}年）</td></tr>
+        <tr><th>連絡先</th><td><a href={url('contact/')}>お問い合わせ</a></td></tr>
+      </table>
+
+      <h2>記事の作り方</h2>
+      <p>記事はAI（Claude）が作成しています。運営者がすべての記事を確認しているわけではありません。</p>
+      <p>記事中の数式は、見本のExcelファイルに入れて実際に計算し、記事に書いた結果と一致することを確かめてから掲載しています。一致しなかった記事は掲載しません。それでも誤りが残ることがあります。お気づきの点は<a href={url('contact/')}>お問い合わせ</a>からお知らせください。</p>
+      <p>個別の税務・会計・法律の判断については、<a href={url('privacy/')}>免責事項</a>をご覧ください。</p>
     </div>
   </div>
 </Base>
