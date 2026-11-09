@@ -6,7 +6,7 @@ export const SITE = {
 };
 
 // Search Console / Bing Webmaster の所有確認トークン（取得したらここに貼る）
-export const VERIFY = { google: '', bing: '' };
+export const VERIFY = { google: 'O3u0-Jq7lQOlQ3Week93jbpwS8OP0YdYJByAiMrglyM', bing: '' };
 
 export const url = (p: string) => `${import.meta.env.BASE_URL}${p.replace(/^\//, '')}`;
 
