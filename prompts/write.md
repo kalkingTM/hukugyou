@@ -28,7 +28,9 @@ category: 事務効率化                            # 経理 / 事務効率化 
 keyword: "Excel シフト表 自動 土日 色分け"
 sampleFile: shift-table-weekend-color.xlsx
 hasAffiliate: false
-sources:
-  - https://support.microsoft.com/...
+# sources は任意。バージョン差のある機能や、祝日・税などの制度に触れる記事だけ付ける。
+# 一般的なテクニックの記事では書かない（欄ごと省略する）。
+# sources:
+#   - https://support.microsoft.com/...
 ---
 ```

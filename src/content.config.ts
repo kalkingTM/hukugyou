@@ -11,7 +11,7 @@ const posts = defineCollection({
     keyword: z.string(),
     sampleFile: z.string().optional(),      // public/files/ 配下のファイル名
     hasAffiliate: z.boolean().default(false),
-    sources: z.array(z.string().url()).min(1),
+    sources: z.array(z.string().url()).default([]),   // 任意。バージョン差や制度に触れる記事だけ付ける
   }),
 });
 

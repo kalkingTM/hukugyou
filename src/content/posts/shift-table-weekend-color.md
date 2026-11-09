@@ -7,9 +7,6 @@ keyword: "Excel シフト表 自動 土日 色分け"
 sampleFile: shift-table-weekend-color.xlsx
 hasAffiliate: false
 sources:
-  - https://support.microsoft.com/ja-jp/office/weekday-%E9%96%A2%E6%95%B0-60e44483-2ed1-439f-8bd0-e404c190949a
-  - https://support.microsoft.com/ja-jp/excel/use-conditional-formatting-to-highlight-information-in-excel
-  - https://support.microsoft.com/ja-jp/excel/date-and-time-functions-reference
   - https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html
 ---
 

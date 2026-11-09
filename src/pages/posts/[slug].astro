@@ -109,12 +109,16 @@ const label = (s: string) => { try { return decodeURIComponent(new URL(s).pathna
         <section class="post-foot">
           <h2>この記事の確認方法</h2>
           <p>紹介した数式は見本ファイルに入れて計算し、記事中の結果と一致することを確認してから掲載しています。お使いのExcelのバージョンで使えない関数がある場合は、本文の代わりの数式をお試しください。誤りに気づいたら<a href={url('contact/')}>お問い合わせ</a>からお知らせください。</p>
-          <h2>参考にした情報</h2>
-          <ul class="sources">
-            {d.sources.map((s) => (
-              <li><a href={s} rel="nofollow noopener" target="_blank"><b>{host(s)}</b><span>{label(s)}</span></a></li>
-            ))}
-          </ul>
+          {d.sources.length > 0 && (
+            <>
+              <h2>参考にした情報</h2>
+              <ul class="sources">
+                {d.sources.map((s) => (
+                  <li><a href={s} rel="nofollow noopener" target="_blank"><b>{host(s)}</b><span>{label(s)}</span></a></li>
+                ))}
+              </ul>
+            </>
+          )}
         </section>
 
         <nav class="pager" aria-label="前後の記事">

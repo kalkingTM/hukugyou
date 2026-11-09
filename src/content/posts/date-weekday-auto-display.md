@@ -6,10 +6,6 @@ category: 事務効率化
 keyword: "Excel 日付 曜日 自動表示"
 sampleFile: date-weekday-auto-display.xlsx
 hasAffiliate: false
-sources:
-  - https://support.microsoft.com/ja-jp/office/text-関数-20d5ac4d-7b94-49fd-bb38-93d29371225c
-  - https://support.microsoft.com/ja-jp/office/weekday-関数-60e44483-2ed1-439f-8bd0-e404c190949a
-  - https://support.microsoft.com/ja-jp/office/choose-関数-fc5c184f-cb62-4ec7-a46e-38653b98f5bc
 ---
 
 ## 結論

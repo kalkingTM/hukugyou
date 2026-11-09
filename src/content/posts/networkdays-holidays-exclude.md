@@ -7,7 +7,6 @@ keyword: "Excel 営業日 計算 土日祝 除く"
 sampleFile: networkdays-holidays-exclude.xlsx
 hasAffiliate: false
 sources:
-  - https://support.microsoft.com/ja-jp/office/networkdays-関数-48e717bf-a7a3-495f-969e-5005e3eb18e7
   - https://www8.cao.go.jp/chosei/shukujitsu/gaiyou.html
 ---
 
