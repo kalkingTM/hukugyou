@@ -30,3 +30,17 @@ export const fmtDateShort = (d: Date) => {
   const j = jst(d);
   return `${j.getUTCFullYear()}.${String(j.getUTCMonth() + 1).padStart(2, '0')}.${String(j.getUTCDate()).padStart(2, '0')}`;
 };
+
+// ===== 運営者情報 =====
+// 実務に就いた年月（平成16年4月 = 2004年4月）。経験年数はビルド時に自動計算する。
+export const OPERATOR = {
+  role: '税理士',
+  careerStart: { year: 2004, month: 4, label: '平成16年4月' },
+};
+
+/** 実務経験の満年数（日本時間）。毎年4月に1つ増える。サイトを作り直すたび（毎日の自動実行を含む）に更新される。 */
+export const experienceYears = (now: Date = new Date()): number => {
+  const j = jst(now);
+  const years = j.getUTCFullYear() - OPERATOR.careerStart.year;
+  return j.getUTCMonth() + 1 >= OPERATOR.careerStart.month ? years : years - 1;
+};

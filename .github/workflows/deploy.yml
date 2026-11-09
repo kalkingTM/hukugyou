@@ -37,3 +37,20 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # 公開できたら、新しい記事のURLをBingなどにすぐ知らせる（失敗しても公開には影響しない）
+  notify:
+    needs: deploy
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Wait for Pages to serve the new files
+        run: sleep 30
+      - run: node scripts/indexnow.mjs

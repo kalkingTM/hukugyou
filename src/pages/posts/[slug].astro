@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import PostRow from '../../components/PostRow.astro';
 import { getCollection, render } from 'astro:content';
 import { statSync } from 'node:fs';
-import { SITE, catOf, fmtDate, url } from '../../site';
+import { SITE, OPERATOR, experienceYears, catOf, fmtDate, url } from '../../site';
 
 export async function getStaticPaths() {
   const posts = (await getCollection('posts')).sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf() || a.id.localeCompare(b.id));
@@ -115,6 +115,8 @@ const label = (s: string) => { try { return decodeURIComponent(new URL(s).pathna
         <section class="post-foot">
           <h2>この記事の確認方法</h2>
           <p>紹介した数式は見本ファイルに入れて計算し、記事中の結果と一致することを確認してから掲載しています。お使いのExcelのバージョンで使えない関数がある場合は、本文の代わりの数式をお試しください。誤りに気づいたら<a href={url('contact/')}>お問い合わせ</a>からお知らせください。</p>
+          <h2>運営者について</h2>
+          <p>運営者は、実務経験{experienceYears()}年の{OPERATOR.role}です。記事はAI（Claude）が作成しており、個別の税務・会計の判断を行うものではありません。詳しくは<a href={url('about/')}>運営者情報</a>をご覧ください。</p>
           {d.sources.length > 0 && (
             <>
               <h2>参考にした情報</h2>
