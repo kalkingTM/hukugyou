@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { fmtDateShort, url } from '../site';
+interface Props { post: CollectionEntry<'posts'>; }
+const { post } = Astro.props;
+const d = post.data;
+// 検索用: タイトル・説明・検索語・カテゴリをまとめて持たせる
+const haystack = [d.title, d.description, d.keyword, d.category].join(' ');
+---
+<li class="row" data-search={haystack}>
+  <div class="row-meta">
+    <time class="row-date" datetime={d.date.toISOString()}>{fmtDateShort(d.date)}</time>
+    <span class="row-cat">{d.category}</span>
+  </div>
+  <div class="row-main">
+    <h3 class="row-title">
+      <a href={url(`posts/${post.id}/`)}>{d.title}</a>
+      <span class="row-tags">
+        {d.sampleFile && <span class="row-file" title="数式入りの見本ファイルが付いています">XLSX</span>}
+        {d.hasAffiliate && <span class="pr">PR</span>}
+      </span>
+    </h3>
+    <p class="row-desc">{d.description}</p>
+  </div>
+</li>

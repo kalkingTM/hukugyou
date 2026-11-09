@@ -1,7 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
-import PostCard from '../../components/PostCard.astro';
+import PostRow from '../../components/PostRow.astro';
 import { getCollection, render } from 'astro:content';
+import { statSync } from 'node:fs';
 import { SITE, catOf, fmtDate, url } from '../../site';
 
 export async function getStaticPaths() {
@@ -19,8 +20,16 @@ const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
 const related = [
   ...all.filter((p) => p.id !== post.id && p.data.category === d.category),
   ...all.filter((p) => p.id !== post.id && p.data.category !== d.category),
-]
-  .slice(0, 3);
+].slice(0, 3);
+
+let fileSize = '';
+if (d.sampleFile) {
+  try {
+    const kb = statSync(new URL(`../../../public/files/${d.sampleFile}`, import.meta.url)).size / 1024;
+    fileSize = `${Math.max(1, Math.round(kb))} KB`;
+  } catch { /* サイズが取れなくても表示は続ける */ }
+}
+
 const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
 const articleLd = {
   '@context': 'https://schema.org',
@@ -45,26 +54,22 @@ const crumbLd = {
   ],
 };
 const host = (s: string) => { try { return new URL(s).hostname.replace(/^www\d*\./, ''); } catch { return s; } };
+const label = (s: string) => { try { return decodeURIComponent(new URL(s).pathname).replace(/^\/(ja-jp\/)?/, '').slice(0, 70); } catch { return s; } };
 ---
 <Base title={d.title} description={d.description} ogType="article" jsonld={[articleLd, crumbLd]}>
+  <div class="progress" aria-hidden="true"><i></i></div>
   <div class="wrap">
-    <header class="post-head" style={`--cat:${cat.color}`}>
+    <header class="post-head">
       <nav class="crumbs" aria-label="パンくずリスト">
-        <a href={url('/')}>ホーム</a><span>/</span><a href={url(`category/${cat.slug}/`)}>{d.category}</a>
+        <a href={url('/')}>ホーム</a><span aria-hidden="true">/</span><a href={url(`category/${cat.slug}/`)}>{d.category}</a>
       </nav>
-      <div class="post-tags">
-        <a class="chip" href={url(`category/${cat.slug}/`)}>{d.category}</a>
-        {d.hasAffiliate && <span class="pr">PR</span>}
-      </div>
       <h1>{d.title}</h1>
-      <p class="post-desc">{d.description}</p>
-      <div class="post-meta">
-        <time datetime={d.date.toISOString()}>{fmtDate(d.date)} 公開</time>
-        <span class="verified">
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 10.5l3.5 3.5 7.5-8" /></svg>
-          数式は見本ファイルで検証済み
-        </span>
-      </div>
+      <p class="lead">{d.description}</p>
+      <p class="byline">
+        <time datetime={d.date.toISOString()}>{fmtDate(d.date)}</time>
+        <span>{d.category}</span>
+        {d.hasAffiliate && <span class="pr">PR</span>}
+      </p>
     </header>
 
     <div class="post-grid">
@@ -75,148 +80,173 @@ const host = (s: string) => { try { return new URL(s).hostname.replace(/^www\d*\
             <ol>{toc.map((h) => <li class={`d${h.depth}`}><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
           </nav>
         )}
-        {d.sampleFile && (
-          <a class="side-dl" href={url(`files/${d.sampleFile}`)} download>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M4 20h16" /></svg>
-            見本ファイルをダウンロード
-          </a>
-        )}
       </aside>
 
       <article class="post-main">
         {d.sampleFile && (
-          <div class="dl-panel">
-            <div class="dl-icon" aria-hidden="true">
-              <svg viewBox="0 0 40 40"><rect x="4" y="2" width="28" height="36" rx="4" fill="#17683d" /><path d="M11 13l10 14M21 13L11 27" stroke="#fff" stroke-width="3" stroke-linecap="round" /><rect x="22" y="22" width="16" height="16" rx="8" fill="#fff" stroke="#17683d" stroke-width="2" /><path d="M30 26v7M27 30.5l3 3 3-3" stroke="#17683d" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
-            </div>
-            <div class="dl-text">
-              <b>この記事の見本ファイル</b>
-              <span>記事の数式と書式がすべて入っています。動きを確かめてから、自分の表に使ってください。</span>
+          <div class="file-row">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 3h13l6 6v20H7z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /><path d="M20 3v6h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /><path d="M11.5 14.5l7 8M18.5 14.5l-7 8" stroke="#1a6a43" stroke-width="2.2" stroke-linecap="round" /></svg>
+            <div class="file-info">
+              <span class="file-label">見本ファイル</span>
+              <span class="file-name">{d.sampleFile}{fileSize && <small>{fileSize}</small>}</span>
             </div>
             <a class="btn" href={url(`files/${d.sampleFile}`)} download>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M4 20h16" /></svg>
-              {d.sampleFile}
+              ダウンロード
             </a>
           </div>
         )}
 
         {toc.length > 0 && (
-          <details class="toc toc-inline">
-            <summary>目次</summary>
+          <details class="toc-inline">
+            <summary>目次（{toc.filter((h) => h.depth === 2).length}項目）</summary>
             <ol>{toc.map((h) => <li class={`d${h.depth}`}><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
           </details>
         )}
 
         <div class="prose"><Content /></div>
 
-        <section class="verify-box">
+        <section class="post-foot">
           <h2>この記事の確認方法</h2>
-          <p>記事で紹介した数式は、見本ファイルに入れて表計算ソフトで実際に計算し、記事中の計算結果と一致することを確認してから掲載しています。お使いのExcelのバージョンによって使えない関数がある場合は、本文の代わりの数式をお試しください。</p>
-          <p class="meta">誤りに気づいたら<a href={url('contact/')}>お問い合わせ</a>からお知らせください。</p>
-        </section>
-
-        <section class="sources">
+          <p>紹介した数式は見本ファイルに入れて計算し、記事中の結果と一致することを確認してから掲載しています。お使いのExcelのバージョンで使えない関数がある場合は、本文の代わりの数式をお試しください。誤りに気づいたら<a href={url('contact/')}>お問い合わせ</a>からお知らせください。</p>
           <h2>参考にした情報</h2>
-          <ul>{d.sources.map((s) => <li><a href={s} rel="nofollow noopener" target="_blank"><span class="src-host">{host(s)}</span>{decodeURI(s).replace(/^https?:\/\/[^/]+/, '').slice(0, 90)}</a></li>)}</ul>
+          <ul class="sources">
+            {d.sources.map((s) => (
+              <li><a href={s} rel="nofollow noopener" target="_blank"><b>{host(s)}</b><span>{label(s)}</span></a></li>
+            ))}
+          </ul>
         </section>
 
         <nav class="pager" aria-label="前後の記事">
-          {prev ? <a class="prev" href={url(`posts/${prev.id}/`)}><small>← 前の記事</small>{prev.data.title}</a> : <span></span>}
-          {next ? <a class="next" href={url(`posts/${next.id}/`)}><small>次の記事 →</small>{next.data.title}</a> : <span></span>}
+          {prev ? <a class="prev" href={url(`posts/${prev.id}/`)}><small>前の記事</small>{prev.data.title}</a> : <span></span>}
+          {next ? <a class="next" href={url(`posts/${next.id}/`)}><small>次の記事</small>{next.data.title}</a> : <span></span>}
         </nav>
       </article>
     </div>
 
     {related.length > 0 && (
-      <section>
-        <div class="section-title"><h2>あわせて読みたいレシピ</h2></div>
-        <div class="cards">{related.map((p) => <PostCard post={p} />)}</div>
+      <section class="related" aria-labelledby="rel">
+        <h2 id="rel">ほかの記事</h2>
+        <ul class="list">{related.map((p) => <PostRow post={p} />)}</ul>
       </section>
     )}
   </div>
 
   <script is:inline>
-    document.querySelectorAll('.prose pre').forEach((pre) => {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'copy-btn';
-      b.textContent = 'コピー';
-      b.addEventListener('click', async () => {
-        const text = pre.querySelector('code')?.innerText ?? pre.innerText;
-        try { await navigator.clipboard.writeText(text.trim()); b.textContent = 'コピーしました'; b.classList.add('done'); }
-        catch { b.textContent = '選択してコピーしてください'; }
-        setTimeout(() => { b.textContent = 'コピー'; b.classList.remove('done'); }, 1800);
-      });
-      pre.appendChild(b);
-    });
-    const links = [...document.querySelectorAll('.toc-side .toc a')];
-    if (links.length && 'IntersectionObserver' in window) {
-      const map = new Map(links.map((a) => [decodeURIComponent(a.hash.slice(1)), a]));
-      const io = new IntersectionObserver((es) => {
-        es.forEach((e) => {
-          if (e.isIntersecting) { links.forEach((l) => l.classList.remove('on')); map.get(e.target.id)?.classList.add('on'); }
+    (function () {
+      // 数式ブロックにコピーボタン
+      document.querySelectorAll('.prose pre').forEach(function (pre) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'copy-btn'; b.textContent = 'コピー';
+        b.setAttribute('aria-label', 'この数式をコピー');
+        b.addEventListener('click', function () {
+          var code = pre.querySelector('code');
+          var text = (code ? code.innerText : pre.innerText).trim();
+          var done = function (msg, ok) {
+            b.textContent = msg; if (ok) b.classList.add('done');
+            setTimeout(function () { b.textContent = 'コピー'; b.classList.remove('done'); }, 1800);
+          };
+          if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () { done('コピーしました', true); }, function () { done('選択してコピー', false); });
+          else done('選択してコピー', false);
         });
-      }, { rootMargin: '-80px 0px -70% 0px' });
-      document.querySelectorAll('.prose h2[id], .prose h3[id]').forEach((h) => io.observe(h));
-    }
+        pre.appendChild(b);
+      });
+      // 読み進み表示
+      var bar = document.querySelector('.progress i');
+      var main = document.querySelector('.post-main');
+      function onScroll() {
+        if (!bar || !main) return;
+        var r = main.getBoundingClientRect();
+        var total = r.height - window.innerHeight * 0.6;
+        var p = Math.min(1, Math.max(0, (-r.top + 80) / Math.max(total, 1)));
+        bar.style.transform = 'scaleX(' + p + ')';
+      }
+      window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+      // 目次の現在位置
+      var links = Array.prototype.slice.call(document.querySelectorAll('.toc-side .toc a'));
+      if (links.length && 'IntersectionObserver' in window) {
+        var map = {};
+        links.forEach(function (a) { map[decodeURIComponent(a.hash.slice(1))] = a; });
+        var io = new IntersectionObserver(function (es) {
+          es.forEach(function (e) {
+            if (e.isIntersecting && map[e.target.id]) {
+              links.forEach(function (l) { l.classList.remove('on'); });
+              map[e.target.id].classList.add('on');
+            }
+          });
+        }, { rootMargin: '-90px 0px -72% 0px' });
+        document.querySelectorAll('.prose h2[id], .prose h3[id]').forEach(function (h) { io.observe(h); });
+      }
+    })();
   </script>
 </Base>
 
 <style>
-  .post-head { max-width: 820px; padding: 36px 0 8px; }
-  .crumbs { font-size: .8rem; color: var(--faint); margin-bottom: 14px; display: flex; gap: 8px; flex-wrap: wrap; }
-  .crumbs a { color: var(--muted); text-decoration: none; }
-  .crumbs a:hover { color: var(--brand); }
-  .post-tags { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
-  h1 { font-size: clamp(1.5rem, 3.6vw, 2.1rem); line-height: 1.45; margin: 0 0 14px; letter-spacing: .02em; }
-  .post-desc { color: var(--muted); margin: 0 0 16px; font-size: .98rem; }
-  .post-meta { display: flex; gap: 10px 18px; flex-wrap: wrap; align-items: center; font-size: .84rem; color: var(--faint); }
-  .verified { display: inline-flex; align-items: center; gap: 6px; color: var(--brand); font-weight: 600; background: var(--brand-soft); padding: 2px 10px; border-radius: 999px; }
-  .verified svg { width: 15px; height: 15px; }
+  .progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 40; pointer-events: none; }
+  .progress i { display: block; height: 100%; background: var(--brand); transform: scaleX(0); transform-origin: 0 50%; }
 
-  .post-grid { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 48px; margin-top: 28px; align-items: start; }
-  .post-main { max-width: 760px; min-width: 0; }
-  .toc-side { position: sticky; top: 84px; display: grid; gap: 16px; }
+  .post-head { max-width: var(--measure); padding: 44px 0 8px; margin-left: calc(15rem + 56px); }
+  h1 { font-size: clamp(1.55rem, 3.4vw, 2.1rem); line-height: 1.5; margin: 0 0 16px; letter-spacing: .02em; }
+  .lead { margin: 0 0 18px; color: var(--muted); font-size: 1rem; line-height: 1.85; }
+  .byline { display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: center; margin: 0; font-size: .84rem; color: var(--faint); }
+  .byline time { font-family: var(--mono); letter-spacing: 0; }
+
+  .post-grid { display: grid; grid-template-columns: 15rem minmax(0, var(--measure)); gap: 56px; margin-top: 36px; align-items: start; }
+  .post-main { min-width: 0; }
+
+  .toc-side { position: sticky; top: 84px; max-height: calc(100vh - 104px); overflow-y: auto; scrollbar-width: thin; }
   .toc { font-size: .84rem; }
-  .toc-title { font-weight: 700; font-size: .78rem; letter-spacing: .12em; color: var(--faint); margin: 0 0 8px; }
-  .toc ol { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line); }
-  .toc li a { display: block; padding: 5px 0 5px 14px; margin-left: -2px; border-left: 2px solid transparent; color: var(--muted); text-decoration: none; line-height: 1.55; }
-  .toc li.d3 a { padding-left: 26px; font-size: .8rem; }
-  .toc li a:hover { color: var(--text); }
-  .toc li a.on { color: var(--brand); border-left-color: var(--brand); font-weight: 600; }
-  .side-dl { display: flex; align-items: center; gap: 8px; font-size: .82rem; font-weight: 700; text-decoration: none; padding: 10px 12px; border: 1px solid color-mix(in srgb, var(--brand) 35%, transparent); background: var(--brand-softer); border-radius: 10px; }
-  .side-dl svg { width: 18px; height: 18px; flex: none; }
+  .toc-title { margin: 0 0 10px; font-size: .72rem; font-weight: 700; letter-spacing: .14em; color: var(--faint); }
+  .toc ol, .toc-inline ol { list-style: none; margin: 0; padding: 0; }
+  .toc li a { display: block; padding: 6px 0 6px 14px; border-left: 2px solid var(--line); color: var(--muted); text-decoration: none; line-height: 1.55; }
+  .toc li.d3 a { padding-left: 28px; font-size: .8rem; }
+  .toc li a:hover { color: var(--text); border-left-color: var(--line-strong); }
+  .toc li a.on { color: var(--brand); border-left-color: var(--brand); font-weight: 700; }
 
-  .dl-panel { display: flex; gap: 16px; align-items: center; padding: 18px 20px; margin-bottom: 28px; background: var(--surface); border: 1px solid var(--line); border-left: 5px solid var(--brand); border-radius: 12px; box-shadow: var(--shadow); flex-wrap: wrap; }
-  .dl-icon svg { width: 44px; height: 44px; display: block; }
-  .dl-text { flex: 1 1 260px; display: flex; flex-direction: column; line-height: 1.65; }
-  .dl-text span { font-size: .86rem; color: var(--muted); }
-  .dl-panel .btn { font-size: .84rem; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+  .file-row { display: flex; align-items: center; gap: 16px; padding: 16px 18px; margin-bottom: 32px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--surface); flex-wrap: wrap; }
+  .file-row > svg { width: 34px; height: 34px; flex: none; color: var(--muted); }
+  .file-info { display: flex; flex-direction: column; flex: 1 1 200px; min-width: 0; line-height: 1.5; }
+  .file-label { font-size: .74rem; color: var(--faint); letter-spacing: .08em; }
+  .file-name { font-family: var(--mono); font-size: .86rem; overflow-wrap: anywhere; }
+  .file-name small { margin-left: 10px; color: var(--faint); font-size: .74rem; }
 
-  .toc-inline { display: none; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; margin-bottom: 20px; }
-  .toc-inline summary { cursor: pointer; font-weight: 700; }
-  .toc-inline ol { margin-top: 10px; }
+  .toc-inline { display: none; margin-bottom: 28px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+  .toc-inline summary { cursor: pointer; padding: 13px 16px; font-weight: 700; font-size: .92rem; min-height: 44px; }
+  .toc-inline ol { padding: 0 16px 12px; }
+  .toc-inline li a { display: block; padding: 8px 0; font-size: .9rem; color: var(--text); text-decoration: none; border-top: 1px solid var(--line); }
+  .toc-inline li.d3 a { padding-left: 16px; color: var(--muted); font-size: .86rem; }
 
-  .verify-box { margin-top: 48px; padding: 20px 22px; border-radius: 12px; background: var(--brand-softer); border: 1px solid color-mix(in srgb, var(--brand) 25%, transparent); }
-  .verify-box h2, .sources h2 { font-size: 1rem; margin: 0 0 8px; }
-  .verify-box p { margin: .4em 0; font-size: .9rem; }
-  .sources { margin-top: 28px; }
-  .sources ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; }
-  .sources a { display: block; font-size: .8rem; color: var(--muted); text-decoration: none; padding: 8px 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .sources a:hover { border-color: var(--brand); color: var(--brand); }
-  .src-host { font-weight: 700; color: var(--text); margin-right: 10px; }
+  .post-foot { margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--text); }
+  .post-foot h2 { font-size: 1rem; margin: 0 0 8px; }
+  .post-foot p { margin: 0 0 28px; font-size: .9rem; color: var(--muted); }
+  .sources { list-style: none; margin: 0; padding: 0; }
+  .sources li { border-bottom: 1px solid var(--line); }
+  .sources a { display: flex; gap: 14px; align-items: baseline; padding: 10px 0; font-size: .82rem; color: var(--muted); text-decoration: none; min-width: 0; }
+  .sources a:hover { color: var(--brand); }
+  .sources b { flex: none; color: var(--text); font-weight: 700; }
+  .sources span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
 
-  .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 36px; }
-  .pager a { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; text-decoration: none; color: var(--text); font-size: .88rem; line-height: 1.6; font-weight: 600; }
-  .pager a:hover { border-color: var(--brand); }
-  .pager small { color: var(--faint); font-weight: 500; font-size: .76rem; }
+  .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 40px; }
+  .pager a { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border: 1px solid var(--line-strong); border-radius: 8px; text-decoration: none; color: var(--text); font-size: .9rem; line-height: 1.6; font-weight: 700; background: var(--surface); }
+  .pager a:hover { border-color: var(--brand); background: var(--brand-wash); }
+  .pager small { color: var(--faint); font-weight: 500; font-size: .74rem; letter-spacing: .08em; }
   .pager .next { text-align: right; }
 
-  @media (max-width: 960px) {
-    .post-grid { grid-template-columns: 1fr; gap: 0; }
+  .related { margin-top: 72px; }
+  .related h2 { font-size: 1.1rem; margin: 0 0 14px; }
+
+  @media (max-width: 1000px) {
+    .post-head { margin-left: 0; }
+    .post-grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
     .toc-side { display: none; }
     .toc-inline { display: block; }
-    .post-main { max-width: none; }
   }
-  @media (max-width: 560px) { .pager { grid-template-columns: 1fr; } .pager .next { text-align: left; } }
+  @media (max-width: 560px) {
+    .post-head { padding-top: 28px; }
+    .prose { font-size: 1.02rem; }
+    .pager { grid-template-columns: 1fr; }
+    .pager .next { text-align: left; }
+    .file-row .btn { width: 100%; justify-content: center; }
+    .sources a { flex-direction: column; align-items: stretch; gap: 0; }
+  }
 </style>

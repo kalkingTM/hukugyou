@@ -113,7 +113,7 @@ const statusLabel = { published: '公開', rejected: '不採用', error: 'エラ
 
   <h2>実行履歴（新しい順）</h2>
   {runs.length === 0 ? <p class="meta">まだ実行記録がありません。</p> : (
-    <table>
+    <div class="table-scroll"><table>
       <thead><tr><th>#</th><th>日時(UTC)</th><th>結果</th><th>キーワード</th><th>点数</th><th>メモ</th></tr></thead>
       <tbody>
         {runs.slice(0, 60).map((r) => (
@@ -127,7 +127,7 @@ const statusLabel = { published: '公開', rejected: '不採用', error: 'エラ
           </tr>
         ))}
       </tbody>
-    </table>
+    </table></div>
   )}
 
   </div>

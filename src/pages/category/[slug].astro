@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import PostCard from '../../components/PostCard.astro';
+import PostRow from '../../components/PostRow.astro';
 import { getCollection } from 'astro:content';
 import { CATEGORIES, SITE, url } from '../../site';
 
@@ -10,7 +10,7 @@ export function getStaticPaths() {
 const { cat } = Astro.props;
 const posts = (await getCollection('posts'))
   .filter((p) => p.data.category === cat.name)
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf() || b.id.localeCompare(a.id));
 const crumbs = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -20,22 +20,15 @@ const crumbs = {
   ],
 };
 ---
-<Base title={`${cat.name}のExcelレシピ`} description={cat.lead} jsonld={[crumbs]}>
+<Base title={`${cat.name}のExcelレシピ`} description={`${cat.lead}に関するExcelの記事一覧です。`} jsonld={[crumbs]}>
   <div class="wrap">
-    <header class="page-head" style={`--cat:${cat.color}`}>
-      <nav class="crumbs" aria-label="パンくずリスト"><a href={url('/')}>ホーム</a><span>/</span>{cat.name}</nav>
-      <span class="chip">{cat.name}</span>
-      <h1>{cat.name}のExcelレシピ</h1>
-      <p class="meta">{cat.lead}。全{posts.length}本。</p>
+    <header class="page-head">
+      <nav class="crumbs" aria-label="パンくずリスト"><a href={url('/')}>ホーム</a><span aria-hidden="true">/</span><span>{cat.name}</span></nav>
+      <h1>{cat.name}</h1>
+      <p class="meta">{cat.lead}。{posts.length}件</p>
     </header>
     {posts.length === 0
-      ? <p class="empty">このカテゴリのレシピは準備中です。毎日1本ずつ追加しています。</p>
-      : <div class="cards">{posts.map((p) => <PostCard post={p} />)}</div>}
+      ? <p class="empty">このカテゴリの記事は準備中です。毎日1本ずつ追加しています。</p>
+      : <ul class="list" style="margin-top:24px">{posts.map((p) => <PostRow post={p} />)}</ul>}
   </div>
 </Base>
-<style>
-  .crumbs { font-size: .8rem; color: var(--faint); margin-bottom: 14px; display: flex; gap: 8px; }
-  .crumbs a { color: var(--muted); text-decoration: none; }
-  .page-head { margin-bottom: 18px; }
-  .page-head h1 { margin-top: 10px; }
-</style>
