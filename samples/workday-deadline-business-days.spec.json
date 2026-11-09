@@ -1,0 +1,9 @@
+{"file":"public/files/workday-deadline-business-days.xlsx","checks":[
+{"sheet":"納期計算","cell":"F2","expected":"2026-11-04"},
+{"sheet":"納期計算","cell":"G2","expected":"2026-11-05"},
+{"sheet":"納期計算","cell":"H2","expected":"2026-11-04"},
+{"sheet":"納期計算","cell":"F3","expected":"2026-11-25"},
+{"sheet":"納期計算","cell":"G3","expected":"2026-11-26"},
+{"sheet":"納期計算","cell":"G4","expected":"2026-11-16"},
+{"sheet":"納期計算","cell":"L2","expected":"2026-11-20"},
+{"sheet":"納期計算","cell":"L3","expected":"2026-11-04"}]}
