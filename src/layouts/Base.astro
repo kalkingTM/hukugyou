@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { SITE, CATEGORIES, VERIFY, url } from '../site';
+import { SITE, CATEGORIES, VERIFY, ANALYTICS, url } from '../site';
 interface Props {
   title?: string;
   description?: string;
@@ -99,5 +99,8 @@ const siteLd = {
         <p class="copy">© {new Date().getFullYear()} {SITE.name}</p>
       </div>
     </footer>
+    {!noindex && ANALYTICS.cloudflareToken && (
+      <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={`{"token": "${ANALYTICS.cloudflareToken}"}`}></script>
+    )}
   </body>
 </html>

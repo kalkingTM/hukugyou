@@ -8,6 +8,14 @@ export const SITE = {
 // Search Console / Bing Webmaster の所有確認トークン（取得したらここに貼る）
 export const VERIFY = { google: 'O3u0-Jq7lQOlQ3Week93jbpwS8OP0YdYJByAiMrglyM', bing: '' };
 
+// アクセス解析（Cloudflare Web Analytics）。トークンは公開されるページに埋め込まれる識別子で、秘密情報ではない。
+export const ANALYTICS = {
+  cloudflareToken: '40e4f857e11741978bfb96bba009641c',
+  dashboardUrl: 'https://dash.cloudflare.com/?to=/:account/web-analytics',
+  searchConsoleUrl: 'https://search.google.com/search-console?resource_id=https%3A%2F%2Fkalkingtm.github.io%2Fhukugyou%2F',
+  bingUrl: 'https://www.bing.com/webmasters/home',
+};
+
 export const url = (p: string) => `${import.meta.env.BASE_URL}${p.replace(/^\//, '')}`;
 
 export const CATEGORIES = [

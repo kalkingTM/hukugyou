@@ -6,7 +6,7 @@ import { readFileSync } from 'node:fs';
 import runsDb from '../../data/runs.json';
 import revenueDb from '../../data/revenue.json';
 import affiliates from '../../affiliates.json';
-import { url } from '../site';
+import { url, ANALYTICS } from '../site';
 
 type Run = {
   id: number; at: string; keyword: string;
@@ -90,6 +90,13 @@ const statusLabel = { published: '公開', rejected: '不採用', error: 'エラ
     <div class="kpi"><b>{topicsLeft}</b><span>ネタ在庫（使用済 {topicsUsed}）</span></div>
     <div class="kpi"><b>¥{revenue.toLocaleString('ja-JP')}</b><span>累計収益（手入力）</span></div>
   </div>
+
+  <h2>アクセス状況を見る</h2>
+  <ul class="meta">
+    <li><a href={ANALYTICS.dashboardUrl} target="_blank" rel="noopener">訪問者数・閲覧数・よく読まれた記事（Cloudflare Web Analytics）</a></li>
+    <li><a href={ANALYTICS.searchConsoleUrl} target="_blank" rel="noopener">検索での表示回数・クリック・検索語（Google Search Console）</a></li>
+    <li><a href={ANALYTICS.bingUrl} target="_blank" rel="noopener">Bing での状況（Bing Webmaster Tools）</a></li>
+  </ul>
 
   <h2>毎日の自動ループの流れ</h2>
   <div class="flow">

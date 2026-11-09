@@ -48,6 +48,9 @@
 | `affiliates.json` | 提携済みアフィリエイト案件（人が登録） |
 | `scripts/indexnow.mjs` | 公開後に新しい記事のURLをBing等へ通知（GitHub Actionsが自動実行。`public/<キー>.txt` はそのための鍵ファイルで、消さない） |
 
+## アクセス解析
+- Cloudflare Web Analytics のタグは `src/layouts/Base.astro` から全ページ（dashboard と 404 を除く）に出る。トークンは `src/site.ts` の `ANALYTICS`。外すときはプライバシーポリシーの「アクセス解析について」も消す。
+
 ## コマンド
 - 検証: `python scripts/verify_xlsx.py samples/<slug>.spec.json`
 - ビルド確認: `npm run build`
