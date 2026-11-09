@@ -5,6 +5,9 @@ export const SITE = {
     '会社で使うExcelの困りごとを、1記事1問題で解説します。各記事に数式入りの見本ファイルが付き、掲載前に数式を計算し直して確認しています。',
 };
 
+// Search Console / Bing Webmaster の所有確認トークン（取得したらここに貼る）
+export const VERIFY = { google: '', bing: '' };
+
 export const url = (p: string) => `${import.meta.env.BASE_URL}${p.replace(/^\//, '')}`;
 
 export const CATEGORIES = [

@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import { CATEGORIES, url } from '../site';
+---
+<Base title="ページが見つかりません" noindex>
+  <div class="wrap-narrow">
+    <header class="page-head"><h1>ページが見つかりません</h1></header>
+    <div class="prose">
+      <p>お探しのページは、移動または削除された可能性があります。記事は<a href={url('/')}>トップページ</a>の検索から探せます。</p>
+      <ul>{CATEGORIES.map((c) => <li><a href={url(`category/${c.slug}/`)}>{c.name}</a>：{c.lead}</li>)}</ul>
+    </div>
+  </div>
+</Base>

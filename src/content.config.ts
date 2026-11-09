@@ -7,6 +7,7 @@ const posts = defineCollection({
     title: z.string(),
     description: z.string().max(160),
     date: z.coerce.date(),
+    updated: z.coerce.date().optional(),    // 内容を大きく直したときだけ
     category: z.enum(['経理', '事務効率化', 'データ整理', '集計・分析', '書類・帳票']),
     keyword: z.string(),
     sampleFile: z.string().optional(),      // public/files/ 配下のファイル名
