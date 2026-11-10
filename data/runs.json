@@ -70,6 +70,24 @@
       "note": "WORKDAY関数で納期計算。逆算・INTL例つき",
       "id": 4,
       "at": "2026-11-09T22:18:17.801Z"
+    },
+    {
+      "source": "routine",
+      "keyword": "Excel 勤務時間 計算 休憩 引く",
+      "slug": "work-hours-break-deduct",
+      "status": "published",
+      "score": 40,
+      "stages": {
+        "select": "ok",
+        "write": "ok",
+        "verify": "ok",
+        "review": "pass",
+        "publish": "ok"
+      },
+      "reasons": [],
+      "note": "MOD+休憩の実働時間、分入力・小数化まで",
+      "id": 5,
+      "at": "2026-11-10T22:19:40.601Z"
     }
   ]
 }

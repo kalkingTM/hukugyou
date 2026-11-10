@@ -1,0 +1,9 @@
+{"file":"public/files/work-hours-break-deduct.xlsx","checks":[
+{"sheet":"勤務時間","cell":"F2","expected":8},
+{"sheet":"勤務時間","cell":"F3","expected":8.5},
+{"sheet":"勤務時間","cell":"F4","expected":8.5},
+{"sheet":"勤務時間","cell":"F5","expected":7},
+{"sheet":"勤務時間","cell":"F8","expected":32},
+{"sheet":"勤務時間","cell":"H3","expected":"08:30"},
+{"sheet":"勤務時間","cell":"H5","expected":"07:00"},
+{"sheet":"勤務時間","cell":"E2","expected":"08:00"}]}
