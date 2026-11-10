@@ -82,6 +82,17 @@ def same(actual: object, expected: object) -> bool:
             return False
     if hasattr(actual, "isoformat"):
         actual = actual.isoformat()[: len(str(expected))]
+    elif (
+        isinstance(expected, str)
+        and len(expected) >= 10
+        and expected[4:5] == "-"
+        and isinstance(actual, (int, float))
+        and not isinstance(actual, bool)
+    ):
+        # 簡易エンジン(formulas)は日付を通し番号(シリアル値)で返す。1899-12-30 起点の日付に直して比べる。
+        from datetime import datetime, timedelta  # noqa: PLC0415
+
+        actual = (datetime(1899, 12, 30) + timedelta(days=float(actual))).isoformat()[: len(expected)]
     return str(actual) == str(expected)
 
 
