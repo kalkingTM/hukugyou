@@ -88,6 +88,24 @@
       "note": "MOD+休憩の実働時間、分入力・小数化まで",
       "id": 5,
       "at": "2026-11-10T22:19:40.601Z"
+    },
+    {
+      "source": "routine",
+      "keyword": "Excel 勤務時間 24時間 超える 表示",
+      "slug": "work-hours-over-24h-display",
+      "status": "published",
+      "score": 38,
+      "stages": {
+        "select": "ok",
+        "write": "ok",
+        "verify": "ok",
+        "review": "pass",
+        "publish": "ok"
+      },
+      "reasons": [],
+      "note": "検証5件一致(LibreOffice)。[h]:mm・小数・文字列・時給計算。self-review: 解決力8/正確さ9/独自性6/分かりやすさ8/薄さ7",
+      "id": 6,
+      "at": "2026-11-11T22:16:15.953Z"
     }
   ]
 }

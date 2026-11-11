@@ -1,0 +1,7 @@
+{"file":"public/files/work-hours-over-24h-display.xlsx","checks":[
+{"sheet":"合計時間","cell":"E2","expected":"1900-01-02T04:20"},
+{"sheet":"合計時間","cell":"E3","expected":"2 days, 4:20:00"},
+{"sheet":"合計時間","cell":"E4","expected":52.33},
+{"sheet":"合計時間","cell":"E5","expected":"52時間20分"},
+{"sheet":"合計時間","cell":"E8","expected":62800}
+]}
