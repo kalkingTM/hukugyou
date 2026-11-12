@@ -106,6 +106,24 @@
       "note": "検証5件一致(LibreOffice)。[h]:mm・小数・文字列・時給計算。self-review: 解決力8/正確さ9/独自性6/分かりやすさ8/薄さ7",
       "id": 6,
       "at": "2026-11-11T22:16:15.953Z"
+    },
+    {
+      "source": "routine",
+      "keyword": "Excel 残業時間 計算 8時間超",
+      "slug": "overtime-over-8h-calc",
+      "status": "published",
+      "score": 37,
+      "stages": {
+        "select": "ok",
+        "write": "ok",
+        "verify": "ok",
+        "review": "pass",
+        "publish": "ok"
+      },
+      "reasons": [],
+      "note": "検証8件一致(LibreOffice)。MAX+ROUND(分)で8h超のみ残業。self-review: 解決力8/正確さ8/独自性7/分かりやすさ8/薄さ6",
+      "id": 7,
+      "at": "2026-11-12T22:16:31.740Z"
     }
   ]
 }

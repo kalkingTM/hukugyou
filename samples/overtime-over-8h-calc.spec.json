@@ -1,0 +1,10 @@
+{"file":"public/files/overtime-over-8h-calc.xlsx","checks":[
+{"sheet":"残業時間","cell":"E3","expected":"09:30"},
+{"sheet":"残業時間","cell":"F2","expected":"00:00"},
+{"sheet":"残業時間","cell":"F3","expected":"01:30"},
+{"sheet":"残業時間","cell":"F4","expected":"02:45"},
+{"sheet":"残業時間","cell":"F5","expected":"00:00"},
+{"sheet":"残業時間","cell":"G6","expected":2},
+{"sheet":"残業時間","cell":"G7","expected":6.25},
+{"sheet":"残業時間","cell":"E7","expected":"1 day, 22:00:00"}
+]}
