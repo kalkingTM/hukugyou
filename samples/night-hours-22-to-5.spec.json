@@ -1,0 +1,9 @@
+{"file":"public/files/night-hours-22-to-5.xlsx","checks":[
+{"sheet":"深夜時間","cell":"D2","expected":"00:00"},
+{"sheet":"深夜時間","cell":"D3","expected":"01:30"},
+{"sheet":"深夜時間","cell":"D4","expected":"04:00"},
+{"sheet":"深夜時間","cell":"D5","expected":"07:00"},
+{"sheet":"深夜時間","cell":"D6","expected":"01:00"},
+{"sheet":"深夜時間","cell":"E5","expected":7},
+{"sheet":"深夜時間","cell":"E7","expected":13.5}
+]}

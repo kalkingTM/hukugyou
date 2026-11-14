@@ -124,6 +124,24 @@
       "note": "検証8件一致(LibreOffice)。MAX+ROUND(分)で8h超のみ残業。self-review: 解決力8/正確さ8/独自性7/分かりやすさ8/薄さ6",
       "id": 7,
       "at": "2026-11-12T22:16:31.740Z"
+    },
+    {
+      "source": "routine",
+      "keyword": "Excel 深夜時間 計算 22時から5時",
+      "slug": "night-hours-22-to-5",
+      "status": "published",
+      "score": 38,
+      "stages": {
+        "select": "ok",
+        "write": "ok",
+        "verify": "ok",
+        "review": "pass",
+        "publish": "ok"
+      },
+      "reasons": [],
+      "note": "検証7件一致(LibreOffice)。0-5時と22-翌5時の重なりをMIN/MAXで算出。self-review: 解決力8/正確さ8/独自性7/分かりやすさ8/薄さ7",
+      "id": 8,
+      "at": "2026-11-14T22:15:43.863Z"
     }
   ]
 }
