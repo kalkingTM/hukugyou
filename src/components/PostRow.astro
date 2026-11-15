@@ -17,7 +17,7 @@ const haystack = [d.title, d.description, d.keyword, d.category].join(' ');
       <a href={url(`posts/${post.id}/`)}>{d.title}</a>
       <span class="row-tags">
         {d.sampleFile && <span class="row-file" title="数式入りの見本ファイルが付いています">XLSX</span>}
-        {d.hasAffiliate && <span class="pr">PR</span>}
+        {d.affiliate.length > 0 && <span class="pr">PR</span>}
       </span>
     </h3>
     <p class="row-desc">{d.description}</p>

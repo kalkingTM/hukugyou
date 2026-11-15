@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import PostRow from '../../components/PostRow.astro';
 import { getCollection, render } from 'astro:content';
 import { statSync } from 'node:fs';
+import affiliates from '../../../affiliates.json';
 import { SITE, OPERATOR, experienceYears, catOf, fmtDate, url } from '../../site';
 
 export async function getStaticPaths() {
@@ -16,6 +17,12 @@ const { post, prev, next, all } = Astro.props;
 const { Content, headings } = await render(post);
 const d = post.data;
 const cat = catOf(d.category);
+// 広告枠: affiliates.json の id を引く。カテゴリが合わない案件・無効の案件は出さない。最大2つ。
+const affItems = (d.affiliate ?? [])
+  .map((id) => affiliates.items.find((a) => a.id === id && a.enabled !== false && a.categories.includes(d.category)))
+  .filter((a): a is (typeof affiliates.items)[number] => Boolean(a))
+  .slice(0, 2);
+const hasAd = affItems.length > 0;
 const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
 const related = [
   ...all.filter((p) => p.id !== post.id && p.data.category === d.category),
@@ -74,7 +81,7 @@ const label = (s: string) => { try { return decodeURIComponent(new URL(s).pathna
       <p class="byline">
         <time datetime={d.date.toISOString()}>{fmtDate(d.date)}</time>
         <span>{d.category}</span>
-        {d.hasAffiliate && <span class="pr">PR</span>}
+        {hasAd && <span class="pr">PR</span>}
       </p>
     </header>
 
@@ -111,6 +118,20 @@ const label = (s: string) => { try { return decodeURIComponent(new URL(s).pathna
         )}
 
         <div class="prose"><Content /></div>
+
+        {hasAd && (
+          <aside class="ad-box" aria-label="広告">
+            <p class="ad-label"><span class="pr">PR</span> この枠には広告（アフィリエイトリンク）が含まれます</p>
+            {affItems.map((a) => (
+              <div class="ad-item">
+                <p class="ad-name">{a.name}</p>
+                <p class="ad-blurb">{a.blurb}</p>
+                <p><a class="ad-link" href={a.href} rel="sponsored nofollow noopener" target="_blank">{a.anchor}</a></p>
+                <p class="ad-note">{a.destinationNote}</p>
+              </div>
+            ))}
+          </aside>
+        )}
 
         <section class="post-foot">
           <h2>この記事の確認方法</h2>
@@ -228,6 +249,14 @@ const label = (s: string) => { try { return decodeURIComponent(new URL(s).pathna
   .toc-inline li a { display: block; padding: 8px 0; font-size: .9rem; color: var(--text); text-decoration: none; border-top: 1px solid var(--line); }
   .toc-inline li.d3 a { padding-left: 16px; color: var(--muted); font-size: .86rem; }
 
+  .ad-box { margin-top: 48px; padding: 18px 20px; border: 1px solid var(--line-strong); border-radius: 8px; background: var(--surface); }
+  .ad-label { margin: 0 0 12px; font-size: .82rem; color: var(--muted); display: flex; gap: 8px; align-items: center; }
+  .ad-item + .ad-item { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .ad-item p { margin: 0 0 6px; }
+  .ad-name { font-weight: 700; }
+  .ad-blurb { font-size: .92rem; color: var(--muted); }
+  .ad-link { font-weight: 700; overflow-wrap: anywhere; }
+  .ad-note { font-size: .8rem; color: var(--faint); line-height: 1.7; }
   .post-foot { margin-top: 64px; padding-top: 28px; border-top: 1px solid var(--text); }
   .post-foot h2 { font-size: 1rem; margin: 0 0 8px; }
   .post-foot p { margin: 0 0 28px; font-size: .9rem; color: var(--muted); }
