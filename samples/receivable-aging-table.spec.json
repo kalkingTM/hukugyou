@@ -1,0 +1,15 @@
+{"file":"public/files/receivable-aging-table.xlsx","checks":[
+{"sheet":"年齢調べ","cell":"E2","expected":25},
+{"sheet":"年齢調べ","cell":"F2","expected":"30日以内"},
+{"sheet":"年齢調べ","cell":"E5","expected":97},
+{"sheet":"年齢調べ","cell":"F5","expected":"90日超"},
+{"sheet":"年齢調べ","cell":"E6","expected":30},
+{"sheet":"年齢調べ","cell":"E7","expected":90},
+{"sheet":"年齢調べ","cell":"F7","expected":"61〜90日"},
+{"sheet":"年齢調べ","cell":"J5","expected":368000},
+{"sheet":"年齢調べ","cell":"J6","expected":260000},
+{"sheet":"年齢調べ","cell":"J7","expected":270000},
+{"sheet":"年齢調べ","cell":"J8","expected":60000},
+{"sheet":"年齢調べ","cell":"J9","expected":958000},
+{"sheet":"年齢調べ","cell":"I9","expected":8}
+]}
