@@ -15,12 +15,19 @@
 - slug は英小文字とハイフンで作る（例: `shift-table-weekend-color`）。
 
 ## 2. 調査・執筆 → `prompts/write.md`
+- 記事は最初から `src/content/posts/<slug>.md` に書く（不採用のときだけ手順5で `rejected/` に移す）。
 ## 3. 見本xlsxと検証
 - `samples/<slug>.py` を書いて `public/files/<slug>.xlsx` を作る（openpyxl。数式は文字列で入れる）。
 - `samples/<slug>.spec.json` に、記事に書く計算結果の例を期待値として書く（最低3か所）。
 - `python scripts/verify_xlsx.py samples/<slug>.spec.json` を実行する。
 - FAIL なら原因を直して再実行してよい（最大2回）。それでも FAIL なら不採用。
   計算エンジンが対応していない関数で ERROR になった場合は、同じことができる別の数式に変えるか、不採用にする。
+
+## 3.5 自動チェック（機械で確かめられる規則）
+- `python scripts/check_article.py <slug>` を実行する。
+- `ERROR` が出たら、その指摘のとおりに記事・見本・spec を直して、再実行してよい（最大2回）。それでも FAIL なら不採用にする。
+- `WARN` は、直せるものは直す（公開は止まらない）。
+- **このスクリプトや、規則（CLAUDE.md・prompts/）を、記事を通すために書き換えてはいけない。**
 
 ## 4. AIレビュー → `prompts/review.md`
 - 執筆したときの意図に引きずられないよう、**記事ファイルと見本だけを読み直して**採点する。
@@ -33,7 +40,7 @@
 
 ## 6. 記録とpush
 ```
-node scripts/log-run.mjs '{"source":"routine","keyword":"<検索語>","slug":"<公開時のみ>","status":"published|rejected|error","score":<点数>,"stages":{"select":"ok","write":"ok","verify":"ok|ng","review":"pass|fail","publish":"ok|skipped"},"reasons":["<不採用やエラーの理由>"],"note":"<一言>"}'
+node scripts/log-run.mjs '{"source":"routine","keyword":"<検索語>","slug":"<公開時のみ>","status":"published|rejected|error","score":<点数>,"stages":{"select":"ok","write":"ok","verify":"ok|ng","check":"ok|ng","review":"pass|fail","publish":"ok|skipped"},"reasons":["<不採用やエラーの理由>"],"note":"<一言>"}'
 ```
 - `git add -A && git commit -m "post: <slug>"`（不採用は `"reject: <slug>"`）して `main` に push する。
 - 途中でエラーになっても、可能な限り status `error` で記録して push してから終了する（ダッシュボードで止まったことが分かるように）。

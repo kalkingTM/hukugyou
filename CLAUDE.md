@@ -48,6 +48,7 @@
 | `data/runs.json` | 実行記録。**必ず `node scripts/log-run.mjs` で追記する** |
 | `data/revenue.json` | 収益（人が手入力） |
 | `affiliates.json` | 提携済みアフィリエイト案件（人が登録） |
+| `scripts/check_article.py` | 記事の自動チェック。規則を機械で確認する公開前の関門（ERRORがあれば公開しない） |
 | `scripts/indexnow.mjs` | 公開後に新しい記事のURLをBing等へ通知（GitHub Actionsが自動実行。`public/<キー>.txt` はそのための鍵ファイルで、消さない） |
 
 ## アクセス解析
@@ -55,5 +56,6 @@
 
 ## コマンド
 - 検証: `python scripts/verify_xlsx.py samples/<slug>.spec.json`
+- 自動チェック: `python scripts/check_article.py <slug>`（公開前の関門。`--all` で全記事を点検）
 - ビルド確認: `npm run build`
 - 記録: `node scripts/log-run.mjs '<JSON>'`

@@ -49,6 +49,7 @@ const flow = [
   { key: 'select', label: 'ネタ選定', sub: `在庫 ${topicsLeft}件` },
   { key: 'write', label: '調査・執筆', sub: `${stageCount('write')}回` },
   { key: 'verify', label: '数式の検証', sub: `一致 ${stageCount('verify')} / 不一致 ${stageCount('verify', 'ng')}` },
+  { key: 'check', label: '自動チェック', sub: `通過 ${stageCount('check')} / 不通過 ${stageCount('check', 'ng')}` },
   { key: 'review', label: 'AIレビュー', sub: `合格 ${stageCount('review', 'pass')} / 不合格 ${stageCount('review', 'fail')}` },
   { key: 'publish', label: '公開', sub: `${published}本` },
 ];
