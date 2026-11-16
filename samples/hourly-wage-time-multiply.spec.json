@@ -1,0 +1,13 @@
+{"file":"public/files/hourly-wage-time-multiply.xlsx","checks":[
+{"sheet":"日給計算","cell":"E2","expected":"08:00"},
+{"sheet":"日給計算","cell":"E3","expected":"07:30"},
+{"sheet":"日給計算","cell":"E4","expected":"05:20"},
+{"sheet":"日給計算","cell":"F2","expected":383.333333333333},
+{"sheet":"日給計算","cell":"G2","expected":9200},
+{"sheet":"日給計算","cell":"G3","expected":8625},
+{"sheet":"日給計算","cell":"G4","expected":6133},
+{"sheet":"日給計算","cell":"G5","expected":8433},
+{"sheet":"日給計算","cell":"G6","expected":4025},
+{"sheet":"日給計算","cell":"E7","expected":"1 day, 7:40:00"},
+{"sheet":"日給計算","cell":"G7","expected":36416}
+]}

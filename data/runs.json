@@ -161,6 +161,25 @@
       "note": "検証13件一致(LibreOffice)。経過日数→IF区分→SUMIF集計。self-review: 解決力8/正確さ9/独自性6/分かりやすさ8/薄さ7",
       "id": 9,
       "at": "2026-11-15T22:16:01.453Z"
+    },
+    {
+      "source": "routine",
+      "keyword": "Excel 時給 計算 時間 掛け算",
+      "slug": "hourly-wage-time-multiply",
+      "status": "published",
+      "score": 38,
+      "stages": {
+        "select": "ok",
+        "write": "ok",
+        "verify": "ok",
+        "check": "ok",
+        "review": "pass",
+        "publish": "ok"
+      },
+      "reasons": [],
+      "note": "検証11件一致(LibreOffice)。時刻×24/分換算→ROUNDDOWNで日給。self-review: 解決力8/正確さ8/独自性7/分かりやすさ8/薄さ7",
+      "id": 10,
+      "at": "2026-11-16T22:17:06.076Z"
     }
   ]
 }
