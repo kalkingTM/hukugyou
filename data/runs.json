@@ -180,6 +180,25 @@
       "note": "検証11件一致(LibreOffice)。時刻×24/分換算→ROUNDDOWNで日給。self-review: 解決力8/正確さ8/独自性7/分かりやすさ8/薄さ7",
       "id": 10,
       "at": "2026-11-16T22:17:06.076Z"
+    },
+    {
+      "source": "routine",
+      "keyword": "Excel 仕訳 CSV 変換 会計ソフト 取り込み 形式",
+      "slug": "journal-csv-bank-statement",
+      "status": "published",
+      "score": 37,
+      "stages": {
+        "select": "ok",
+        "write": "ok",
+        "verify": "ok",
+        "check": "ok",
+        "review": "pass",
+        "publish": "ok"
+      },
+      "reasons": [],
+      "note": "検証12件一致(LibreOffice)。IFで入出金を借方/貸方に振り分けTEXTで日付整形。取り込み形式はソフトごとと明記。広告なし。self-review: 解決力7/正確さ8/独自性7/分かりやすさ8/薄さ7",
+      "id": 11,
+      "at": "2026-11-17T22:15:17.525Z"
     }
   ]
 }

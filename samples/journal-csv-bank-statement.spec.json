@@ -1,0 +1,14 @@
+{"file":"public/files/journal-csv-bank-statement.xlsx","checks":[
+{"sheet":"仕訳","cell":"A2","expected":"2026/11/02"},
+{"sheet":"仕訳","cell":"B2","expected":"普通預金"},
+{"sheet":"仕訳","cell":"D2","expected":"売上高"},
+{"sheet":"仕訳","cell":"C2","expected":330000},
+{"sheet":"仕訳","cell":"B3","expected":"地代家賃"},
+{"sheet":"仕訳","cell":"D3","expected":"普通預金"},
+{"sheet":"仕訳","cell":"C3","expected":110000},
+{"sheet":"仕訳","cell":"E4","expected":8800},
+{"sheet":"仕訳","cell":"F5","expected":"電気料金"},
+{"sheet":"仕訳","cell":"C9","expected":690800},
+{"sheet":"仕訳","cell":"E9","expected":690800},
+{"sheet":"仕訳","cell":"F9","expected":"借方と貸方が一致"}
+]}
