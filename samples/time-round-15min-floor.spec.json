@@ -1,0 +1,13 @@
+{"file":"public/files/time-round-15min-floor.xlsx","checks":[
+{"sheet":"15分丸め","cell":"D2","expected":"09:00"},
+{"sheet":"15分丸め","cell":"E2","expected":"18:00"},
+{"sheet":"15分丸め","cell":"D3","expected":"09:15"},
+{"sheet":"15分丸め","cell":"E3","expected":"18:00"},
+{"sheet":"15分丸め","cell":"D5","expected":"09:15"},
+{"sheet":"15分丸め","cell":"E5","expected":"17:45"},
+{"sheet":"15分丸め","cell":"F3","expected":"08:45"},
+{"sheet":"15分丸め","cell":"F6","expected":"09:15"},
+{"sheet":"15分丸め","cell":"H2","expected":9},
+{"sheet":"15分丸め","cell":"H7","expected":79},
+{"sheet":"15分丸め","cell":"G8","expected":"1 day, 23:00:00"}
+]}

@@ -199,6 +199,25 @@
       "note": "検証12件一致(LibreOffice)。IFで入出金を借方/貸方に振り分けTEXTで日付整形。取り込み形式はソフトごとと明記。広告なし。self-review: 解決力7/正確さ8/独自性7/分かりやすさ8/薄さ7",
       "id": 11,
       "at": "2026-11-17T22:15:17.525Z"
+    },
+    {
+      "source": "routine",
+      "keyword": "Excel 15分単位 切り捨て 勤務時間",
+      "slug": "time-round-15min-floor",
+      "status": "published",
+      "score": 38,
+      "stages": {
+        "select": "ok",
+        "write": "ok",
+        "verify": "ok",
+        "check": "ok",
+        "review": "pass",
+        "publish": "ok"
+      },
+      "reasons": [],
+      "note": "検証11件一致(LibreOffice)。ROUND×1440でFLOOR/CEILING→時刻に戻す。日ごと vs 合計の丸め差(79分)を提示。端数処理は一般論＋厚労省リンク。self-review: 解決力8/正確さ8/独自性7/分かりやすさ8/薄さ7",
+      "id": 12,
+      "at": "2026-11-18T22:15:58.509Z"
     }
   ]
 }
