@@ -1,0 +1,17 @@
+{"file":"public/files/payment-reconcile-match.xlsx","checks":[
+{"sheet":"請求一覧","cell":"D2","expected":110000},
+{"sheet":"請求一覧","cell":"F2","expected":"消込済"},
+{"sheet":"請求一覧","cell":"E3","expected":550},
+{"sheet":"請求一覧","cell":"F3","expected":"不足あり"},
+{"sheet":"請求一覧","cell":"D4","expected":220000},
+{"sheet":"請求一覧","cell":"F4","expected":"消込済"},
+{"sheet":"請求一覧","cell":"F5","expected":"未入金"},
+{"sheet":"請求一覧","cell":"E6","expected":-88000},
+{"sheet":"請求一覧","cell":"F6","expected":"過入金"},
+{"sheet":"請求一覧","cell":"C8","expected":649000},
+{"sheet":"請求一覧","cell":"D8","expected":560450},
+{"sheet":"請求一覧","cell":"I2","expected":2},
+{"sheet":"入金一覧","cell":"D7","expected":"請求なし"},
+{"sheet":"入金一覧","cell":"D2","expected":"照合済み"},
+{"sheet":"入金一覧","cell":"C9","expected":626450}
+]}

@@ -218,6 +218,25 @@
       "note": "検証11件一致(LibreOffice)。ROUND×1440でFLOOR/CEILING→時刻に戻す。日ごと vs 合計の丸め差(79分)を提示。端数処理は一般論＋厚労省リンク。self-review: 解決力8/正確さ8/独自性7/分かりやすさ8/薄さ7",
       "id": 12,
       "at": "2026-11-18T22:15:58.509Z"
+    },
+    {
+      "source": "routine",
+      "keyword": "Excel 入金消込 照合 金額 一致",
+      "slug": "payment-reconcile-match",
+      "status": "published",
+      "score": 36,
+      "stages": {
+        "select": "ok",
+        "write": "ok",
+        "verify": "ok",
+        "check": "ok",
+        "review": "pass",
+        "publish": "ok"
+      },
+      "reasons": [],
+      "note": "検証15件一致(LibreOffice)。SUMIFで請求番号ごとに入金合計→差額→IFで状態判定。分割入金・手数料差額・請求なし入金を扱う。広告なし。self-review: 解決力7/正確さ8/独自性7/分かりやすさ7/薄さ7",
+      "id": 13,
+      "at": "2026-11-19T22:15:48.970Z"
     }
   ]
 }
