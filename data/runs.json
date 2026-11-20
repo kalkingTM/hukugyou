@@ -237,6 +237,25 @@
       "note": "検証15件一致(LibreOffice)。SUMIFで請求番号ごとに入金合計→差額→IFで状態判定。分割入金・手数料差額・請求なし入金を扱う。広告なし。self-review: 解決力7/正確さ8/独自性7/分かりやすさ7/薄さ7",
       "id": 13,
       "at": "2026-11-19T22:15:48.970Z"
+    },
+    {
+      "source": "routine",
+      "keyword": "Excel 年齢 計算 生年月日 今日",
+      "slug": "age-from-birthdate-datedif",
+      "status": "published",
+      "score": 38,
+      "stages": {
+        "select": "ok",
+        "write": "ok",
+        "verify": "ok",
+        "check": "ok",
+        "review": "pass",
+        "publish": "ok"
+      },
+      "reasons": [],
+      "note": "検証11件一致(LibreOffice)。DATEDIFで満年齢・年ヶ月、EDATEで次の誕生日。365で割ると誕生日直前にずれる例を併記。広告・sourcesなし。self-review: 解決力8/正確さ8/独自性7/分かりやすさ8/薄さ7",
+      "id": 14,
+      "at": "2026-11-20T22:15:44.280Z"
     }
   ]
 }

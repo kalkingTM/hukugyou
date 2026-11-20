@@ -1,0 +1,13 @@
+{"file":"public/files/age-from-birthdate-datedif.xlsx","checks":[
+{"sheet":"年齢計算","cell":"C2","expected":36},
+{"sheet":"年齢計算","cell":"D2","expected":"36歳7ヶ月"},
+{"sheet":"年齢計算","cell":"C3","expected":41},
+{"sheet":"年齢計算","cell":"D3","expected":"41歳0ヶ月"},
+{"sheet":"年齢計算","cell":"D4","expected":"27歳11ヶ月"},
+{"sheet":"年齢計算","cell":"C5","expected":23},
+{"sheet":"年齢計算","cell":"C6","expected":54},
+{"sheet":"年齢計算","cell":"C7","expected":35},
+{"sheet":"年齢計算","cell":"G7","expected":36},
+{"sheet":"年齢計算","cell":"F2","expected":145},
+{"sheet":"年齢計算","cell":"F3","expected":365}
+]}
