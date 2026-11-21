@@ -256,6 +256,25 @@
       "note": "検証11件一致(LibreOffice)。DATEDIFで満年齢・年ヶ月、EDATEで次の誕生日。365で割ると誕生日直前にずれる例を併記。広告・sourcesなし。self-review: 解決力8/正確さ8/独自性7/分かりやすさ8/薄さ7",
       "id": 14,
       "at": "2026-11-20T22:15:44.280Z"
+    },
+    {
+      "source": "routine",
+      "keyword": "簿記3級 仕訳 練習 Excel 自動採点",
+      "slug": "bookkeeping-journal-practice-autograde",
+      "status": "published",
+      "score": 37,
+      "stages": {
+        "select": "ok",
+        "write": "ok",
+        "verify": "ok",
+        "check": "ok",
+        "review": "pass",
+        "publish": "ok"
+      },
+      "reasons": [],
+      "note": "検証8件一致(LibreOffice)。IF/AND/TRIMで借方貸方を正解シートと照合。問題は自作の架空取引。広告・sourcesなし。self-review: 解決力8/正確さ8/独自性7/分かりやすさ7/薄さ7",
+      "id": 15,
+      "at": "2026-11-21T22:15:16.487Z"
     }
   ]
 }

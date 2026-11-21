@@ -1,0 +1,10 @@
+{"file":"public/files/bookkeeping-journal-practice-autograde.xlsx","checks":[
+{"sheet":"問題と回答","cell":"G2","expected":"○"},
+{"sheet":"問題と回答","cell":"G3","expected":"×"},
+{"sheet":"問題と回答","cell":"G4","expected":"○"},
+{"sheet":"問題と回答","cell":"G5","expected":"×"},
+{"sheet":"問題と回答","cell":"G6","expected":"○"},
+{"sheet":"問題と回答","cell":"J2","expected":3},
+{"sheet":"問題と回答","cell":"J3","expected":5},
+{"sheet":"問題と回答","cell":"J4","expected":0.6}
+]}
