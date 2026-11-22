@@ -275,6 +275,25 @@
       "note": "検証8件一致(LibreOffice)。IF/AND/TRIMで借方貸方を正解シートと照合。問題は自作の架空取引。広告・sourcesなし。self-review: 解決力8/正確さ8/独自性7/分かりやすさ7/薄さ7",
       "id": 15,
       "at": "2026-11-21T22:15:16.487Z"
+    },
+    {
+      "source": "routine",
+      "keyword": "Excel 支払予定表 月末 翌月末",
+      "slug": "payment-due-date-eomonth",
+      "status": "published",
+      "score": 37,
+      "stages": {
+        "select": "ok",
+        "write": "ok",
+        "verify": "ok",
+        "check": "ok",
+        "review": "pass",
+        "publish": "ok"
+      },
+      "reasons": [],
+      "note": "検証8件一致(LibreOffice)。EOMONTHで締め日→支払予定日の2段階、2月と土日はWORKDAYで調整。勤続年数はDATEDIFが年齢記事と重複のためスキップ。広告・sourcesなし。self-review: 解決力8/正確さ8/独自性7/分かりやすさ7/薄さ7",
+      "id": 16,
+      "at": "2026-11-22T22:16:15.824Z"
     }
   ]
 }

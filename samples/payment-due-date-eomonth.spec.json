@@ -1,0 +1,10 @@
+{"file":"public/files/payment-due-date-eomonth.xlsx","checks":[
+{"sheet":"支払予定表","cell":"F2","expected":"2026-10-31"},
+{"sheet":"支払予定表","cell":"H2","expected":"2026-11-30"},
+{"sheet":"支払予定表","cell":"G4","expected":"2026-11-20"},
+{"sheet":"支払予定表","cell":"H4","expected":"2026-12-25"},
+{"sheet":"支払予定表","cell":"H5","expected":"2026-12-10"},
+{"sheet":"支払予定表","cell":"H7","expected":"2026-02-28"},
+{"sheet":"支払予定表","cell":"I7","expected":"2026-03-02"},
+{"sheet":"支払予定表","cell":"H6","expected":"2026-12-31"}
+]}
