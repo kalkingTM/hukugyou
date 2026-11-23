@@ -1,0 +1,12 @@
+{"file":"public/files/description-keyword-account-lookup.xlsx","checks":[
+{"sheet":"明細","cell":"D2","expected":"売上高"},
+{"sheet":"明細","cell":"D3","expected":"地代家賃"},
+{"sheet":"明細","cell":"D4","expected":"消耗品費"},
+{"sheet":"明細","cell":"E4","expected":"文具"},
+{"sheet":"明細","cell":"D5","expected":"水道光熱費"},
+{"sheet":"明細","cell":"D6","expected":"通信費"},
+{"sheet":"明細","cell":"D7","expected":"支払手数料"},
+{"sheet":"明細","cell":"D8","expected":"要確認"},
+{"sheet":"明細","cell":"D9","expected":"売上高"},
+{"sheet":"明細","cell":"C11","expected":1}
+]}

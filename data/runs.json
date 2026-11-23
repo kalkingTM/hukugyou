@@ -294,6 +294,25 @@
       "note": "検証8件一致(LibreOffice)。EOMONTHで締め日→支払予定日の2段階、2月と土日はWORKDAYで調整。勤続年数はDATEDIFが年齢記事と重複のためスキップ。広告・sourcesなし。self-review: 解決力8/正確さ8/独自性7/分かりやすさ7/薄さ7",
       "id": 16,
       "at": "2026-11-22T22:16:15.824Z"
+    },
+    {
+      "source": "routine",
+      "keyword": "Excel 摘要 キーワード 勘定科目 自動 振り分け",
+      "slug": "description-keyword-account-lookup",
+      "status": "published",
+      "score": 41,
+      "stages": {
+        "select": "ok",
+        "write": "ok",
+        "verify": "ok",
+        "check": "ok",
+        "review": "pass",
+        "publish": "ok"
+      },
+      "reasons": [],
+      "note": "SEARCH+INDEX/MATCHで摘要から科目を自動判定。月末日付のネタは重複でスキップ",
+      "id": 17,
+      "at": "2026-11-23T22:16:17.301Z"
     }
   ]
 }
