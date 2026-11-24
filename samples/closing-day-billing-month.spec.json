@@ -1,0 +1,12 @@
+{"file":"public/files/closing-day-billing-month.xlsx","checks":[
+{"sheet":"請求月判定","cell":"D2","expected":"2026-10-01"},
+{"sheet":"請求月判定","cell":"E2","expected":"2026年10月分"},
+{"sheet":"請求月判定","cell":"E3","expected":"2026年11月分"},
+{"sheet":"請求月判定","cell":"E6","expected":"2026年11月分"},
+{"sheet":"請求月判定","cell":"E7","expected":"2026年12月分"},
+{"sheet":"請求月判定","cell":"E9","expected":"2027年1月分"},
+{"sheet":"請求月判定","cell":"H4","expected":100000},
+{"sheet":"請求月判定","cell":"H5","expected":140000},
+{"sheet":"請求月判定","cell":"H6","expected":70000},
+{"sheet":"請求月判定","cell":"H7","expected":80000}
+]}
