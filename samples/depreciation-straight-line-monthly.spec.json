@@ -1,0 +1,12 @@
+{"file":"public/files/depreciation-straight-line-monthly.xlsx","checks":[
+{"sheet":"減価償却表","cell":"B3","expected":0.2},
+{"sheet":"減価償却表","cell":"B6","expected":6},
+{"sheet":"減価償却表","cell":"B7","expected":120000},
+{"sheet":"減価償却表","cell":"B12","expected":"2027-03-31"},
+{"sheet":"減価償却表","cell":"D12","expected":60000},
+{"sheet":"減価償却表","cell":"E12","expected":540000},
+{"sheet":"減価償却表","cell":"D13","expected":120000},
+{"sheet":"減価償却表","cell":"E16","expected":60000},
+{"sheet":"減価償却表","cell":"D17","expected":59999},
+{"sheet":"減価償却表","cell":"E17","expected":1}
+]}

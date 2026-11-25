@@ -333,6 +333,25 @@
       "source_": "routine",
       "id": 18,
       "at": "2026-11-24T22:16:29.754Z"
+    },
+    {
+      "source": "routine",
+      "keyword": "Excel 減価償却 定額法 計算 月割",
+      "slug": "depreciation-straight-line-monthly",
+      "status": "published",
+      "score": 39,
+      "stages": {
+        "select": "ok",
+        "write": "ok",
+        "verify": "ok",
+        "check": "ok",
+        "review": "pass",
+        "publish": "ok"
+      },
+      "reasons": [],
+      "note": "定額法の月割償却表。解決力8/正確さ8/独自性8/分かりやすさ8/薄さ7。出典は国税庁No.2106",
+      "id": 19,
+      "at": "2026-11-25T22:16:04.064Z"
     }
   ]
 }
