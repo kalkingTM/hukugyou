@@ -352,6 +352,25 @@
       "note": "定額法の月割償却表。解決力8/正確さ8/独自性8/分かりやすさ8/薄さ7。出典は国税庁No.2106",
       "id": 19,
       "at": "2026-11-25T22:16:04.064Z"
+    },
+    {
+      "source": "routine",
+      "keyword": "Excel 期限切れ 色 変える 今日",
+      "slug": "overdue-row-red-today",
+      "status": "published",
+      "score": 37,
+      "stages": {
+        "select": "ok",
+        "write": "ok",
+        "verify": "ok",
+        "check": "ok",
+        "review": "pass",
+        "publish": "ok"
+      },
+      "reasons": [],
+      "note": "TODAY+条件付き書式で期限切れ行を赤く。空欄・完了の除外、状態列つき。self-review: 解決力8/正確さ8/独自性7/分かりやすさ8/薄さ6。広告・sourcesなし。次の「期限3日前」は重複気味に注意",
+      "id": 20,
+      "at": "2026-11-26T22:16:01.784Z"
     }
   ]
 }

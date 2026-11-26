@@ -1,0 +1,12 @@
+{"file":"public/files/overdue-row-red-today.xlsx","checks":[
+{"sheet":"タスク表","cell":"E5","expected":"期限切れ"},
+{"sheet":"タスク表","cell":"E6","expected":"期限切れ"},
+{"sheet":"タスク表","cell":"E7","expected":"今日まで"},
+{"sheet":"タスク表","cell":"E8","expected":"余裕あり"},
+{"sheet":"タスク表","cell":"E9","expected":"完了"},
+{"sheet":"タスク表","cell":"E10","expected":"期限なし"},
+{"sheet":"タスク表","cell":"F5","expected":7},
+{"sheet":"タスク表","cell":"F6","expected":1},
+{"sheet":"タスク表","cell":"B2","expected":2},
+{"sheet":"タスク表","cell":"B3","expected":1}
+]}
