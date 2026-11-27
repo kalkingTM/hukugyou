@@ -1,0 +1,15 @@
+{"file":"public/files/worksheet-seisanhyo.xlsx","checks":[
+{"sheet":"精算表","cell":"G6","expected":0},
+{"sheet":"精算表","cell":"I6","expected":90000},
+{"sheet":"精算表","cell":"I7","expected":500000},
+{"sheet":"精算表","cell":"J9","expected":3000},
+{"sheet":"精算表","cell":"H11","expected":1350000},
+{"sheet":"精算表","cell":"G12","expected":690000},
+{"sheet":"精算表","cell":"G17","expected":237000},
+{"sheet":"精算表","cell":"J17","expected":237000},
+{"sheet":"精算表","cell":"G18","expected":1350000},
+{"sheet":"精算表","cell":"I18","expected":1440000},
+{"sheet":"精算表","cell":"J18","expected":1440000},
+{"sheet":"精算表","cell":"C18","expected":2550000},
+{"sheet":"精算表","cell":"B22","expected":"一致"}
+]}
